@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Projet Android</string>
+    <string name="label_main">Main</string>
 </resources>

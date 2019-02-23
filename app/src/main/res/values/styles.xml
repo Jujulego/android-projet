@@ -17,6 +17,5 @@
     <!-- Toolbar theme -->
     <style name="AppTheme.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:elevation">4dp</item>
     </style>
 </resources>

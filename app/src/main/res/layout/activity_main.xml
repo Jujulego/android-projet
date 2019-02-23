@@ -11,20 +11,38 @@
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
+        android:elevation="4dp"
         android:theme="@style/AppTheme.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
 
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" />
 
-    <!-- Contenu -->
-    <fragment android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <!-- Drawer -->
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
 
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1">
 
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph" />
+        <!-- Contenu -->
+        <fragment android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph" />
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:fitsSystemWindows="true"
+            app:menu="@menu/drawer"
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start" />
+    </androidx.drawerlayout.widget.DrawerLayout>
 </LinearLayout>

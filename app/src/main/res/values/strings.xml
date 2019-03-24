@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Projet Android</string>
-    <string name="label_main">Main</string>
+    <string name="database">database.db</string>
+
+    <!-- Navigation -->
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
+
+    <string name="label_main">Main</string>
 </resources>

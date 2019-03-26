@@ -9,4 +9,8 @@
     <fragment android:id="@+id/fragment_main"
         android:label="@string/label_main"
         android:name="net.capellari.julien.projetandroid.MainFragment" />
+
+    <fragment android:id="@+id/fragment_joueurs"
+        android:label="@string/label_joueurs"
+        android:name="net.capellari.julien.projetandroid.joueurs.JoueursFragment" />
 </navigation>

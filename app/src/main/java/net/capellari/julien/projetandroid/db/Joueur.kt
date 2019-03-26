@@ -7,7 +7,7 @@ import androidx.room.*
 data class Joueur(
     @PrimaryKey(autoGenerate = true) var id: Int,
     var nom: String,
-    var prenom: String
+    var prenom: String? = null
 ) {
     // Dao
     @Dao

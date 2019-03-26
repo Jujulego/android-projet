@@ -7,4 +7,11 @@
     <string name="nav_close">Close</string>
 
     <string name="label_main">Main</string>
+    <string name="label_joueurs">Joueurs</string>
+
+    <!-- Joueur -->
+    <string name="label_ajout_joueur">Nouveau joueur</string>
+
+    <string name="joueur_hint_nom">Nom</string>
+    <string name="joueur_hint_prenom">Prénom</string>
 </resources>

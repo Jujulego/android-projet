@@ -14,6 +14,9 @@ import net.capellari.julien.fragments.ListFragment
 import net.capellari.julien.projetandroid.DataViewModel
 import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Joueur
+import net.capellari.julien.utils.RecyclerAdapter
+import net.capellari.julien.utils.RecyclerHolder
+import net.capellari.julien.utils.autoNotify
 import net.capellari.julien.utils.inflate
 
 class JoueursFragment : ListFragment() {
@@ -27,10 +30,7 @@ class JoueursFragment : ListFragment() {
 
         // view model !
         data = ViewModelProviders.of(requireActivity())[DataViewModel::class.java]
-        data.allJoueurs().observe(this, Observer {
-            adapter.joueurs = it
-            adapter.notifyDataSetChanged()
-        })
+        data.allJoueurs().observe(this, adapter.observer)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,36 +59,25 @@ class JoueursFragment : ListFragment() {
     }
 
     // Classes
-    inner class JoueursAdapter : RecyclerView.Adapter<JoueurHolder>() {
+    inner class JoueursAdapter : RecyclerAdapter<Joueur,JoueurHolder>() {
         // Attributs
-        var joueurs = arrayOf<Joueur>()
+        override var items by autoNotify<Joueur>()
 
         // Méthodes
-        override fun getItemCount(): Int = joueurs.size
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JoueurHolder {
             return JoueurHolder(parent.inflate(R.layout.item_joueur))
         }
-
-        override fun onBindViewHolder(holder: JoueurHolder, position: Int) {
-            holder.bind(joueurs[position])
-        }
     }
 
-    inner class JoueurHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        // Attributs
-        var joueur: Joueur? = null
-
+    inner class JoueurHolder(view: View) : RecyclerHolder<Joueur>(view) {
         // Méthodes
-        fun bind(joueur: Joueur) {
-            this.joueur = joueur
-
+        override fun onBind(value: Joueur?) {
             // vues
-            view.nom.text = getString(R.string.joueur_format_nom, joueur.prenom, joueur.nom)
+            view.nom.text = value?.let { getString(R.string.joueur_format_nom, it.prenom, it.nom) } ?: ""
         }
 
         fun onSwipeOut() {
-            joueur?.let {
+            value?.let {
                 data.delete(it)
 
                 val snackbar = Snackbar.make(view, R.string.joueur_supprime, Snackbar.LENGTH_SHORT)

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,9 @@ import net.capellari.julien.fragments.ListFragment
 import net.capellari.julien.projetandroid.DataViewModel
 import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Match
+import net.capellari.julien.utils.RecyclerAdapter
+import net.capellari.julien.utils.RecyclerHolder
+import net.capellari.julien.utils.autoNotify
 import net.capellari.julien.utils.inflate
 
 class MatchsFragment : ListFragment() {
@@ -32,10 +36,7 @@ class MatchsFragment : ListFragment() {
 
         // view model !
         data = ViewModelProviders.of(requireActivity())[DataViewModel::class.java]
-        data.allMatchs().observe(this, Observer {
-            adapter.matchs = it
-            adapter.notifyDataSetChanged()
-        })
+        data.allMatchs().observe(this, adapter.observer)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +47,7 @@ class MatchsFragment : ListFragment() {
 
     override fun onRecyclerViewCreated(view: RecyclerView) {
         view.adapter = adapter
+        view.itemAnimator = DefaultItemAnimator()
         view.layoutManager = LinearLayoutManager(requireContext())
 
         val helper = ItemTouchHelper(MatchTouchCallback())
@@ -64,36 +66,24 @@ class MatchsFragment : ListFragment() {
     }
 
     // Classes
-    inner class MatchsAdapter : RecyclerView.Adapter<MatchHolder>() {
+    inner class MatchsAdapter : RecyclerAdapter<Match,MatchHolder>() {
         // Attributs
-        var matchs = arrayOf<Match>()
+        override var items by autoNotify<Match>()
 
         // Méthodes
-        override fun getItemCount(): Int = matchs.size
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchHolder {
             return MatchHolder(parent.inflate(R.layout.item_match))
         }
-
-        override fun onBindViewHolder(holder: MatchHolder, position: Int) {
-            holder.bind(matchs[position])
-        }
     }
 
-    inner class MatchHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        // Attributs
-        var match: Match? = null
-
+    inner class MatchHolder(view: View) : RecyclerHolder<Match>(view) {
         // Méthodes
-        fun bind(match: Match) {
-            this.match = match
-
-            // vues
-            view.titre.text = match.titre
+        override fun onBind(value: Match?) {
+            view.titre.text = value?.titre ?: ""
         }
 
         fun onSwipeOut() {
-            match?.let {
+            value?.let {
                 data.delete(it)
 
                 val snackbar = Snackbar.make(view, R.string.match_supprime, Snackbar.LENGTH_SHORT)

@@ -91,7 +91,7 @@ class JoueursFragment : ListFragment() {
             joueur?.let {
                 data.delete(it)
 
-                val snackbar = Snackbar.make(view, getString(R.string.joueur_supprime), Snackbar.LENGTH_SHORT)
+                val snackbar = Snackbar.make(view, R.string.joueur_supprime, Snackbar.LENGTH_SHORT)
                 snackbar.setAction(getString(R.string.annuler)) { _ -> data.insert(it) }
                 snackbar.show()
             }

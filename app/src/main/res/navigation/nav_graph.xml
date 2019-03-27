@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_main">
+    app:startDestination="@id/fragment_matchs">
 
     <!-- Fragments -->
-    <fragment android:id="@+id/fragment_main"
-        android:label="@string/label_main"
-        android:name="net.capellari.julien.projetandroid.MainFragment" />
+    <fragment android:id="@+id/fragment_matchs"
+        android:label="@string/label_matchs"
+        android:name="net.capellari.julien.projetandroid.matchs.MatchsFragment"
+
+        tools:layout="@layout/list_fragment" />
 
     <fragment android:id="@+id/fragment_joueurs"
         android:label="@string/label_joueurs"

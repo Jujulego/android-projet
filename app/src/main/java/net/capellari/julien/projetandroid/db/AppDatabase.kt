@@ -26,4 +26,5 @@ abstract class AppDatabase : RoomDatabase() {
 
     // Méthodes
     abstract fun getJoueurDao(): Joueur.JoueurDao
+    abstract fun getMatchDao():  Match.MatchDao
 }

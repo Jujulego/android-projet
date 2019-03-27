@@ -9,7 +9,7 @@
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
 
-    <string name="label_main">Main</string>
+    <string name="label_matchs">Matchs</string>
     <string name="label_joueurs">Joueurs</string>
 
     <!-- Joueur -->
@@ -20,4 +20,11 @@
 
     <string name="joueur_hint_nom">Nom*</string>
     <string name="joueur_hint_prenom">Prénom*</string>
+
+    <!-- Match -->
+    <string name="label_ajout_match">Nouveau match</string>
+
+    <string name="match_supprime">Joueur supprimé</string>
+
+    <string name="match_hint_titre">Titre*</string>
 </resources>

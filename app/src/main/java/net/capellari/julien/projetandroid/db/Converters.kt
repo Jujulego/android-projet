@@ -3,7 +3,7 @@ package net.capellari.julien.projetandroid.db
 import androidx.room.TypeConverter
 import java.util.*
 
-object Converters {
+class Converters {
     // Date
     @TypeConverter
     fun fromTimestamp(timestamp: Long?) = timestamp?.let { Date(it) }

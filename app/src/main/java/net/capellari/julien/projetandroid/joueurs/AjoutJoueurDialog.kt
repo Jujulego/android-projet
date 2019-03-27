@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.dialog_ajout_joueur.view.*
@@ -14,6 +15,11 @@ import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Joueur
 
 class AjoutJoueurDialog : DialogFragment() {
+    // Companion
+    companion object {
+        const val TAG = "AjoutJoueurDialog"
+    }
+
     // Attributs
     private lateinit var data: DataViewModel
 
@@ -46,14 +52,18 @@ class AjoutJoueurDialog : DialogFragment() {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
         }
 
-        layout.nom.addTextChangedListener(object : TextWatcher {
+        val watcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = s.isNotEmpty()
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled =
+                        layout.nom.text.isNotEmpty() && layout.prenom.text.isNotEmpty()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
+        }
+
+        layout.nom.addTextChangedListener(watcher)
+        layout.prenom.addTextChangedListener(watcher)
 
         return dialog
     }

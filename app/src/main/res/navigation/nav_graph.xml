@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
 
     android:id="@+id/nav_graph"
     app:startDestination="@id/fragment_main">
@@ -12,5 +13,7 @@
 
     <fragment android:id="@+id/fragment_joueurs"
         android:label="@string/label_joueurs"
-        android:name="net.capellari.julien.projetandroid.joueurs.JoueursFragment" />
+        android:name="net.capellari.julien.projetandroid.joueurs.JoueursFragment"
+
+        tools:layout="@layout/list_fragment" />
 </navigation>

@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.item_joueur.view.*
 import net.capellari.julien.fragments.ListFragment
 import net.capellari.julien.projetandroid.DataViewModel
@@ -40,6 +42,9 @@ class JoueursFragment : ListFragment() {
     override fun onRecyclerViewCreated(view: RecyclerView) {
         view.adapter = adapter
         view.layoutManager = LinearLayoutManager(requireContext())
+
+        val helper = ItemTouchHelper(JoueurTouchCallback())
+        helper.attachToRecyclerView(view)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -54,7 +59,7 @@ class JoueursFragment : ListFragment() {
     }
 
     // Classes
-    class JoueursAdapter : RecyclerView.Adapter<JoueurHolder>() {
+    inner class JoueursAdapter : RecyclerView.Adapter<JoueurHolder>() {
         // Attributs
         var joueurs = arrayOf<Joueur>()
 
@@ -70,7 +75,7 @@ class JoueursFragment : ListFragment() {
         }
     }
 
-    class JoueurHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    inner class JoueurHolder(val view: View) : RecyclerView.ViewHolder(view) {
         // Attributs
         var joueur: Joueur? = null
 
@@ -79,7 +84,28 @@ class JoueursFragment : ListFragment() {
             this.joueur = joueur
 
             // vues
-            view.nom.text = joueur.nom
+            view.nom.text = getString(R.string.joueur_format_nom, joueur.prenom, joueur.nom)
+        }
+
+        fun onSwipeOut() {
+            joueur?.let {
+                data.delete(it)
+
+                val snackbar = Snackbar.make(view, getString(R.string.joueur_supprime), Snackbar.LENGTH_SHORT)
+                snackbar.setAction(getString(R.string.annuler)) { _ -> data.insert(it) }
+                snackbar.show()
+            }
+        }
+    }
+
+    inner class JoueurTouchCallback : ItemTouchHelper.Callback() {
+        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder)
+            = makeMovementFlags(0, ItemTouchHelper.END)
+
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder) = false
+
+        override fun onSwiped(holder: RecyclerView.ViewHolder, direction: Int) {
+            if (holder is JoueurHolder) holder.onSwipeOut()
         }
     }
 }

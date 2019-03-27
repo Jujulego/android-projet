@@ -2,6 +2,9 @@
     <string name="app_name">Projet Android</string>
     <string name="database">database.db</string>
 
+    <string name="annuler">Annuler</string>
+    <string name="champs_requis">* champs requis</string>
+
     <!-- Navigation -->
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
@@ -12,6 +15,9 @@
     <!-- Joueur -->
     <string name="label_ajout_joueur">Nouveau joueur</string>
 
-    <string name="joueur_hint_nom">Nom</string>
-    <string name="joueur_hint_prenom">Prénom</string>
+    <string name="joueur_format_nom" formatted="true">%s %s</string>
+    <string name="joueur_supprime">Joueur supprimé</string>
+
+    <string name="joueur_hint_nom">Nom*</string>
+    <string name="joueur_hint_prenom">Prénom*</string>
 </resources>

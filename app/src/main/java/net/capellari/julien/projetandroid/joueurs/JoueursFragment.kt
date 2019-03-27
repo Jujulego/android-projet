@@ -53,7 +53,7 @@ class JoueursFragment : ListFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
-            R.id.action_ajout_joueur -> { AjoutJoueurDialog().show(childFragmentManager, "dialog"); true }
+            R.id.action_ajout_match -> { AjoutJoueurDialog().show(childFragmentManager, "dialog"); true }
             else -> false
         }
     }

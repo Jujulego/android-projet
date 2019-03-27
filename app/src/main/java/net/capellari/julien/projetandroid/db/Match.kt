@@ -8,8 +8,8 @@ import java.util.*
 data class Match(
     @PrimaryKey(autoGenerate = true) var id: Int,
     var titre: String,
-    var description: String,
-    var date: Date
+    var description: String = "",
+    var date: Date = Date()
 ) {
     // Dao
     @Dao

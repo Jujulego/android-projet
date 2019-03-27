@@ -1,6 +1,7 @@
 package net.capellari.julien.projetandroid.matchs
 
 import android.content.Context
+import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -37,12 +38,29 @@ class MatchsFragment : ListFragment() {
         })
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
+    }
+
     override fun onRecyclerViewCreated(view: RecyclerView) {
         view.adapter = adapter
         view.layoutManager = LinearLayoutManager(requireContext())
 
         val helper = ItemTouchHelper(MatchTouchCallback())
         helper.attachToRecyclerView(view)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_matchs, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.action_ajout_match -> { AjoutMatchDialog().show(childFragmentManager, "dialog"); true }
+            else -> false
+        }
     }
 
     // Classes
@@ -54,7 +72,7 @@ class MatchsFragment : ListFragment() {
         override fun getItemCount(): Int = matchs.size
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchHolder {
-            return MatchHolder(parent.inflate(R.layout.item_joueur))
+            return MatchHolder(parent.inflate(R.layout.item_match))
         }
 
         override fun onBindViewHolder(holder: MatchHolder, position: Int) {

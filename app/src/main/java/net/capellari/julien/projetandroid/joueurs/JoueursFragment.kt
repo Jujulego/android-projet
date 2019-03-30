@@ -3,7 +3,6 @@ package net.capellari.julien.projetandroid.joueurs
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.item_joueur.view.*
 import net.capellari.julien.fragments.ListFragment
-import net.capellari.julien.projetandroid.DataViewModel
+import net.capellari.julien.projetandroid.DataModel
 import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Joueur
 import net.capellari.julien.utils.RecyclerAdapter
@@ -22,14 +21,14 @@ import net.capellari.julien.utils.inflate
 class JoueursFragment : ListFragment() {
     // Attributs
     private val adapter = JoueursAdapter()
-    private lateinit var data: DataViewModel
+    private lateinit var data: DataModel
 
     // Events
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
         // view model !
-        data = ViewModelProviders.of(requireActivity())[DataViewModel::class.java]
+        data = ViewModelProviders.of(requireActivity())[DataModel::class.java]
         data.allJoueurs().observe(this, adapter.observer)
     }
 

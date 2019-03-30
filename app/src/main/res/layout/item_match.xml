@@ -19,7 +19,7 @@
         <TextView android:id="@+id/titre"
             android:hint="@string/match_hint_titre"
             android:textColor="@android:color/primary_text_light"
-            android:textSize="20sp"
+            android:textSize="18sp"
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"

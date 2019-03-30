@@ -3,8 +3,8 @@ package net.capellari.julien.projetandroid.matchs
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.item_match.view.*
 import net.capellari.julien.fragments.ListFragment
-import net.capellari.julien.projetandroid.DataViewModel
+import net.capellari.julien.projetandroid.DataModel
 import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Match
 import net.capellari.julien.utils.RecyclerAdapter
 import net.capellari.julien.utils.RecyclerHolder
 import net.capellari.julien.utils.autoNotify
 import net.capellari.julien.utils.inflate
+import org.jetbrains.anko.bundleOf
 
 class MatchsFragment : ListFragment() {
     // Companion
@@ -28,14 +29,14 @@ class MatchsFragment : ListFragment() {
 
     // Attributs
     private val adapter = MatchsAdapter()
-    private lateinit var data: DataViewModel
+    private lateinit var data: DataModel
 
     // Events
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
         // view model !
-        data = ViewModelProviders.of(requireActivity())[DataViewModel::class.java]
+        data = ViewModelProviders.of(requireActivity())[DataModel::class.java]
         data.allMatchs().observe(this, adapter.observer)
     }
 
@@ -76,10 +77,24 @@ class MatchsFragment : ListFragment() {
         }
     }
 
-    inner class MatchHolder(view: View) : RecyclerHolder<Match>(view) {
+    inner class MatchHolder(view: View) : RecyclerHolder<Match>(view), View.OnClickListener {
+        // Initialisation
+        init {
+            view.setOnClickListener(this)
+        }
+
         // Méthodes
         override fun onBind(value: Match?) {
             view.titre.text = value?.titre ?: ""
+        }
+
+        override fun onClick(v: View?) {
+            value?.let {
+                findNavController().navigate(
+                        R.id.action_show_match,
+                        bundleOf("match_id" to it.id)
+                )
+            }
         }
 
         fun onSwipeOut() {

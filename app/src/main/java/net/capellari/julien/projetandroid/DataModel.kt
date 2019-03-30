@@ -5,20 +5,22 @@ import androidx.lifecycle.AndroidViewModel
 import net.capellari.julien.projetandroid.db.AppDatabase
 import net.capellari.julien.projetandroid.db.Joueur
 import net.capellari.julien.projetandroid.db.Match
+import net.capellari.julien.projetandroid.db.Score
 import org.jetbrains.anko.doAsync
 
-class DataViewModel(app: Application) : AndroidViewModel(app) {
+class DataModel(app: Application) : AndroidViewModel(app) {
     // Propriétés
     val app: Application get() = getApplication()
 
     private val database: AppDatabase by lazy { AppDatabase.database(app) }
     private val joueurDao: Joueur.JoueurDao by lazy { database.getJoueurDao() }
     private val matchDao:  Match.MatchDao   by lazy { database.getMatchDao()  }
+    private val scoreDao:  Score.ScoreDao   by lazy { database.getScoreDao()  }
 
     // Méthodes
     // - joueurs
     fun allJoueurs() = joueurDao.all()
-    fun getJoueur(id: Int) = joueurDao.getById(id)
+    fun getJoueur(id: Long) = joueurDao.getById(id)
 
     fun insert(joueur: Joueur) {
         doAsync {
@@ -38,11 +40,15 @@ class DataViewModel(app: Application) : AndroidViewModel(app) {
 
     // - matchs
     fun allMatchs() = matchDao.all()
-    fun getMatch(id: Int) = matchDao.getById(id)
+    fun getMatch(id: Long) = matchDao.getById(id)
 
     fun insert(match: Match) {
         doAsync {
-            matchDao.insert(match)
+            val id = matchDao.insert(match)
+            scoreDao.insert(
+                    Score(0, 0, id),
+                    Score(0, 0, id)
+            )
         }
     }
     fun update(match: Match) {
@@ -55,4 +61,9 @@ class DataViewModel(app: Application) : AndroidViewModel(app) {
             matchDao.delete(match)
         }
     }
+
+    // - scores
+    fun allScoresByMatch(match: Match)   = scoreDao.allByMatch(match.id)
+    fun allScoresByMatch(match_id: Long) = scoreDao.allByMatch(match_id)
+    fun getScoreById(id: Long) = scoreDao.getById(id)
 }

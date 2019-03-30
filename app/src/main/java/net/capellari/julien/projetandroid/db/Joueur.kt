@@ -5,19 +5,17 @@ import androidx.room.*
 import net.capellari.julien.utils.DiffItem
 
 @Entity
-data class Joueur(
-    @PrimaryKey(autoGenerate = true) var id: Int,
+data class Joueur(@PrimaryKey(autoGenerate = true) var id: Long,
     var nom: String,
-    var prenom: String
-): DiffItem<Joueur> {
-    // Méthodes
-    override fun isSameItem(other: Joueur): Boolean {
-        return id == other.id
-    }
+    var prenom: String)
+        : DiffItem<Joueur> {
 
-    override fun isSameContent(other: Joueur): Boolean {
-        return nom == other.nom && prenom == other.prenom
-    }
+    // Méthodes
+    override fun isSameItem(other: Joueur)
+        = (id == other.id)
+
+    override fun isSameContent(other: Joueur)
+        = (nom == other.nom) && (prenom == other.prenom)
 
     // Dao
     @Dao
@@ -27,7 +25,7 @@ data class Joueur(
         fun all(): LiveData<Array<Joueur>>
 
         @Query("select * from Joueur where id = :id")
-        fun getById(id: Int): LiveData<Joueur>
+        fun getById(id: Long): LiveData<Joueur>
 
         // Modifications
         @Insert fun insert(joueur: Joueur)

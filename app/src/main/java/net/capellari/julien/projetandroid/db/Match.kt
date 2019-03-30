@@ -6,20 +6,18 @@ import net.capellari.julien.utils.DiffItem
 import java.util.*
 
 @Entity
-data class Match(
-    @PrimaryKey(autoGenerate = true) var id: Int,
+data class Match(@PrimaryKey(autoGenerate = true) var id: Long,
     var titre: String,
     var description: String = "",
-    var date: Date = Date()
-): DiffItem<Match> {
-    // Méthodes
-    override fun isSameItem(other: Match): Boolean {
-        return id == other.id
-    }
+    var date: Date = Date())
+        : DiffItem<Match> {
 
-    override fun isSameContent(other: Match): Boolean {
-        return titre == other.titre && description == other.description && date == other.date
-    }
+    // Méthodes
+    override fun isSameItem(other: Match)
+        = (id == other.id)
+
+    override fun isSameContent(other: Match)
+        = (titre == other.titre) && (description == other.description) && (date == other.date)
 
     // Dao
     @Dao
@@ -29,11 +27,11 @@ data class Match(
         fun all(): LiveData<Array<Match>>
 
         @Query("select * from `Match` where id = :id")
-        fun getById(id: Int): LiveData<Match>
+        fun getById(id: Long): LiveData<Match>
 
         // Modifications
         @Insert
-        fun insert(match: Match)
+        fun insert(match: Match): Long
 
         @Update
         fun update(match: Match)

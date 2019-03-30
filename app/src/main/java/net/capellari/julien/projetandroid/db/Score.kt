@@ -1,24 +1,43 @@
 package net.capellari.julien.projetandroid.db
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import net.capellari.julien.utils.DiffItem
 
 @Entity(
     foreignKeys = [
         ForeignKey(entity = Match::class,
             parentColumns = arrayOf("id"),
-            childColumns = arrayOf("match_id")
+            childColumns = arrayOf("match_id"),
+            onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(entity = Joueur::class,
             parentColumns = arrayOf("id"),
-            childColumns = arrayOf("joueur_id")
+            childColumns = arrayOf("joueur_id"),
+            onDelete = ForeignKey.SET_NULL
         )
     ]
 )
-class Score(
-    @PrimaryKey(autoGenerate = true) var id: Int,
+class Score(@PrimaryKey(autoGenerate = true) var id: Long,
     var score: Int,
-    var match_id: Int,
-    var joueur_id: Int
-)
+    var match_id: Long,
+    var joueur_id: Long? = null) {
+
+    // Dao
+    @Dao
+    interface ScoreDao {
+        // Accès
+        @Query("select * from Score where match_id = :match")
+        fun allByMatch(match: Long): LiveData<Array<Score>>
+
+        @Query("select * from Score where id = :id")
+        fun getById(id: Long): LiveData<Score>
+
+        // Modification
+        @Insert
+        fun insert(vararg scores: Score)
+
+        @Update
+        fun update(vararg scores: Score)
+    }
+}

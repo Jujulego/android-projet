@@ -9,7 +9,7 @@ import android.text.TextWatcher
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.dialog_ajout_match.view.*
-import net.capellari.julien.projetandroid.DataViewModel
+import net.capellari.julien.projetandroid.DataModel
 import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Match
 
@@ -20,14 +20,14 @@ class AjoutMatchDialog : DialogFragment() {
     }
 
     // Attributs
-    private lateinit var data: DataViewModel
+    private lateinit var data: DataModel
 
     // Events
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
         // view model !
-        data = ViewModelProviders.of(requireActivity())[DataViewModel::class.java]
+        data = ViewModelProviders.of(requireActivity())[DataModel::class.java]
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

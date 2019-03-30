@@ -9,7 +9,7 @@ import net.capellari.julien.projetandroid.R
 
 @Database(
     entities = [Joueur::class, Match::class, Score::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -20,6 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
             val ctx = context.applicationContext
 
             return Room.databaseBuilder(ctx, AppDatabase::class.java, ctx.getString(R.string.database))
+                    .fallbackToDestructiveMigrationFrom(1)
                     .build()
         }
     }
@@ -27,4 +28,5 @@ abstract class AppDatabase : RoomDatabase() {
     // Méthodes
     abstract fun getJoueurDao(): Joueur.JoueurDao
     abstract fun getMatchDao():  Match.MatchDao
+    abstract fun getScoreDao():  Score.ScoreDao
 }

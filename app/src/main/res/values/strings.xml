@@ -9,7 +9,9 @@
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
 
+    <string name="label_match">Match</string>
     <string name="label_matchs">Matchs</string>
+
     <string name="label_joueurs">Joueurs</string>
 
     <!-- Joueur -->

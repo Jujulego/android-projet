@@ -6,11 +6,10 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.dialog_ajout_joueur.view.*
-import net.capellari.julien.projetandroid.DataViewModel
+import net.capellari.julien.projetandroid.DataModel
 import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Joueur
 
@@ -21,14 +20,14 @@ class AjoutJoueurDialog : DialogFragment() {
     }
 
     // Attributs
-    private lateinit var data: DataViewModel
+    private lateinit var data: DataModel
 
     // Events
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
         // view model !
-        data = ViewModelProviders.of(requireActivity())[DataViewModel::class.java]
+        data = ViewModelProviders.of(requireActivity())[DataModel::class.java]
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

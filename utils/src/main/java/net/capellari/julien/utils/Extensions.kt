@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
 import com.google.common.io.BaseEncoding
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -16,6 +18,12 @@ import kotlin.reflect.KProperty0
 import kotlin.reflect.jvm.isAccessible
 
 // Extentions
+fun View.snack(txt: String, duration: Int)
+        = Snackbar.make(this, txt, duration)
+
+fun View.snack(@StringRes res: Int, duration: Int)
+        = Snackbar.make(this, res, duration)
+
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }

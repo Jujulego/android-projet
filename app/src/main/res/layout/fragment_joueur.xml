@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:orientation="vertical"
+    android:padding="8dp"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".joueurs.JoueurFragment"
+    tools:menu="toolbar_joueur">
+
+    <TextView android:text="@string/joueur_title_infos"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="20sp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp" />
+
+    <EditText android:id="@+id/prenom"
+        android:hint="@string/joueur_hint_prenom"
+        android:inputType="text"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText android:id="@+id/nom"
+        android:hint="@string/joueur_hint_nom"
+        android:inputType="text"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -118,7 +118,7 @@ class MatchsFragment : ListFragment() {
                 data.delete(it)
 
                 val snackbar = Snackbar.make(view, R.string.match_supprime, Snackbar.LENGTH_SHORT)
-                snackbar.setAction(getString(R.string.annuler)) { _ -> data.insert(it) }
+                snackbar.setAction(getString(R.string.cancel)) { _ -> data.insert(it) }
                 snackbar.show()
             }
         }

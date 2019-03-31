@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import net.capellari.julien.utils.RecyclerAdapter
 import net.capellari.julien.utils.RecyclerHolder
 import net.capellari.julien.utils.autoNotify
 import net.capellari.julien.utils.inflate
+import org.jetbrains.anko.bundleOf
 
 open class JoueursFragment : ListFragment() {
     // Attributs
@@ -58,7 +60,10 @@ open class JoueursFragment : ListFragment() {
     }
 
     open fun onJoueurClick(joueur: Joueur) {
-
+        findNavController().navigate(
+                R.id.action_show_joueur,
+                bundleOf("joueur_id" to joueur.id)
+        )
     }
 
     // Classes
@@ -93,7 +98,7 @@ open class JoueursFragment : ListFragment() {
                 data.delete(it)
 
                 val snackbar = Snackbar.make(view, R.string.joueur_supprime, Snackbar.LENGTH_SHORT)
-                snackbar.setAction(getString(R.string.annuler)) { _ -> data.insert(it) }
+                snackbar.setAction(getString(R.string.cancel)) { _ -> data.insert(it) }
                 snackbar.show()
             }
         }

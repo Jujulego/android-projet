@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_joueur.view.*
 import net.capellari.julien.projetandroid.DataModel
 import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Joueur
-import net.capellari.julien.utils.snack
+import net.capellari.julien.utils.snackbar
 
 class JoueurFragment : Fragment() {
     // Attributs
@@ -67,7 +67,7 @@ class JoueurFragment : Fragment() {
 
         // Message
         if (msg) {
-            view?.snack(R.string.reloaded, Snackbar.LENGTH_SHORT)?.show()
+            view?.snackbar(R.string.reloaded, Snackbar.LENGTH_SHORT)?.show()
         }
     }
 
@@ -84,6 +84,6 @@ class JoueurFragment : Fragment() {
         }
 
         // Message
-        view?.snack(R.string.saved, Snackbar.LENGTH_SHORT)?.show()
+        view?.snackbar(R.string.saved, Snackbar.LENGTH_SHORT)?.show()
     }
 }

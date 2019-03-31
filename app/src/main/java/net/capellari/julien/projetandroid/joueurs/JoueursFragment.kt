@@ -14,10 +14,7 @@ import net.capellari.julien.fragments.ListFragment
 import net.capellari.julien.projetandroid.DataModel
 import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Joueur
-import net.capellari.julien.utils.RecyclerAdapter
-import net.capellari.julien.utils.RecyclerHolder
-import net.capellari.julien.utils.autoNotify
-import net.capellari.julien.utils.inflate
+import net.capellari.julien.utils.*
 import org.jetbrains.anko.bundleOf
 
 open class JoueursFragment : ListFragment() {
@@ -97,9 +94,9 @@ open class JoueursFragment : ListFragment() {
             value?.let {
                 data.delete(it)
 
-                val snackbar = Snackbar.make(view, R.string.joueur_supprime, Snackbar.LENGTH_SHORT)
-                snackbar.setAction(getString(R.string.cancel)) { _ -> data.insert(it) }
-                snackbar.show()
+                view.snackbar(R.string.joueur_supprime, Snackbar.LENGTH_SHORT)
+                        .setAction(R.string.cancel) { _ -> data.insert(it) }
+                        .show()
             }
         }
     }

@@ -18,10 +18,10 @@ import kotlin.reflect.KProperty0
 import kotlin.reflect.jvm.isAccessible
 
 // Extentions
-fun View.snack(txt: String, duration: Int)
+fun View.snackbar(txt: String, duration: Int)
         = Snackbar.make(this, txt, duration)
 
-fun View.snack(@StringRes res: Int, duration: Int)
+fun View.snackbar(@StringRes res: Int, duration: Int)
         = Snackbar.make(this, res, duration)
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {

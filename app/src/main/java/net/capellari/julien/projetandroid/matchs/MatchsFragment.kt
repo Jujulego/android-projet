@@ -16,10 +16,7 @@ import net.capellari.julien.fragments.ListFragment
 import net.capellari.julien.projetandroid.DataModel
 import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Match
-import net.capellari.julien.utils.RecyclerAdapter
-import net.capellari.julien.utils.RecyclerHolder
-import net.capellari.julien.utils.autoNotify
-import net.capellari.julien.utils.inflate
+import net.capellari.julien.utils.*
 import org.jetbrains.anko.bundleOf
 
 class MatchsFragment : ListFragment() {
@@ -117,9 +114,9 @@ class MatchsFragment : ListFragment() {
             value?.let {
                 data.delete(it)
 
-                val snackbar = Snackbar.make(view, R.string.match_supprime, Snackbar.LENGTH_SHORT)
-                snackbar.setAction(getString(R.string.cancel)) { _ -> data.insert(it) }
-                snackbar.show()
+                view.snackbar(R.string.match_supprime, Snackbar.LENGTH_SHORT)
+                        .setAction(R.string.cancel) { _ -> data.insert(it) }
+                        .show()
             }
         }
     }

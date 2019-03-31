@@ -1,4 +1,4 @@
-package net.capellari.julien.projetandroid.joueurs
+package net.capellari.julien.projetandroid.matchs
 
 import android.content.Context
 import android.os.Bundle
@@ -7,23 +7,30 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_joueur.view.*
+import kotlinx.android.synthetic.main.fragment_edit_match.view.*
 import net.capellari.julien.projetandroid.DataModel
 import net.capellari.julien.projetandroid.R
-import net.capellari.julien.projetandroid.db.Joueur
+import net.capellari.julien.projetandroid.db.Match
 import net.capellari.julien.utils.snackbar
 
-class JoueurFragment : Fragment() {
+class EditMatchFragment : Fragment() {
     // Attributs
     private lateinit var data: DataModel
-    private var joueur: Joueur? = null
+    private lateinit var model: MatchModel
+
+    private var match: Match? = null
 
     // Events
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
-        // View models
-        data = ViewModelProviders.of(requireActivity())[DataModel::class.java]
+        // view models !
+        data  = ViewModelProviders.of(requireActivity())[DataModel::class.java]
+        model = ViewModelProviders.of(requireActivity())[MatchModel::class.java]
+
+        arguments?.getLong("match_id")?.let {
+            model.setMatchId(it, data)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,11 +40,14 @@ class JoueurFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_joueur, container, false)
+        return inflater.inflate(R.layout.fragment_edit_match, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        load()
+        model.match?.observe(this, Observer {
+            match = it
+            load()
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -55,14 +65,10 @@ class JoueurFragment : Fragment() {
     // Méthodes
     fun load(msg: Boolean = false) {
         // Get joueur
-        arguments?.getLong("joueur_id")?.let { id ->
-            data.getJoueur(id).observe(this, Observer {
-                joueur = it
-
-                // Remplissage
-                view?.prenom?.setText(it.prenom)
-                view?.nom?.setText(it.nom)
-            })
+        match?.let {
+            // Remplissage
+            view?.titre?.setText(it.titre)
+            view?.description?.setText(it.description)
         }
 
         // Message
@@ -72,11 +78,11 @@ class JoueurFragment : Fragment() {
     }
 
     fun save() {
-        joueur?.apply {
+        match?.apply {
             // Récupération des modifs
             view?.let {
-                prenom = it.prenom.text.toString()
-                nom    = it.nom.text.toString()
+                titre       = it.titre.text.toString()
+                description = it.description.text.toString()
             }
 
             // Sauvegarde

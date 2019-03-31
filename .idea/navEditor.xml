@@ -8,6 +8,18 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="fragment_edit_match">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="554" />
+                            <option name="y" value="165" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="fragment_joueur">
                     <value>
                       <LayoutPositions>
@@ -52,6 +64,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_edit_match">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_select_joueur">
                               <value>
                                 <LayoutPositions />
@@ -88,8 +105,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="541" />
-                            <option name="y" value="12" />
+                            <option name="x" value="552" />
+                            <option name="y" value="-160" />
                           </Point>
                         </option>
                       </LayoutPositions>

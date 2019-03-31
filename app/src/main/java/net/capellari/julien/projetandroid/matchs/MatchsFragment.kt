@@ -90,7 +90,7 @@ class MatchsFragment : ListFragment() {
             // Autres données
             if (value != null) {
                 data.allScoresByMatch(value).observe(this@MatchsFragment, Observer {
-                    if (it != null) {
+                    if (it != null && it.isNotEmpty()) {
                         view.score_j1.text = it[0].score.toString()
                         view.score_j2.text = it[1].score.toString()
                     }

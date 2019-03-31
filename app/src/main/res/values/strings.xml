@@ -3,6 +3,7 @@
     <string name="database">database.db</string>
 
     <string name="cancel">Annuler</string>
+    <string name="edit">Modifier</string>
     <string name="reload">Recharger</string>
     <string name="reloaded">Rechargé</string>
     <string name="save">Sauvegarder</string>
@@ -17,12 +18,14 @@
     <string name="label_match">Match</string>
     <string name="label_matchs">Matchs</string>
 
+    <string name="label_joueur">Joueur</string>
     <string name="label_joueurs">Joueurs</string>
 
     <!-- Joueur -->
     <string name="label_ajout_joueur">Nouveau joueur</string>
     <string name="label_select_joueur">Choisissez un joueur</string>
 
+    <string name="joueur_title_infos">Informations :</string>
     <string name="joueur_format_nom" formatted="true">%s %s</string>
     <string name="joueur_supprime">Joueur supprimé</string>
 
@@ -32,10 +35,9 @@
     <!-- Match -->
     <string name="label_ajout_match">Nouveau match</string>
 
-    <string name="match_supprime">Joueur supprimé</string>
+    <string name="match_supprime">Match supprimé</string>
 
     <string name="match_hint_titre">Titre*</string>
+    <string name="match_hint_description">Description</string>
     <string name="action_edit">Modifier</string>
-    <string name="joueur_title_infos">Informations :</string>
-    <string name="label_joueur">Joueur</string>
 </resources>

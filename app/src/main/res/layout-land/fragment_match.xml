@@ -9,27 +9,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".matchs.MatchFragment">
+    tools:context=".matchs.MatchFragment"
+    tools:menu="toolbar_match">
 
     <include layout="@layout/part_match_scores"
         android:layout_height="match_parent"
-        android:layout_width="wrap_content" />
+        android:layout_width="0dp"
+        android:layout_weight="1" />
 
-    <ScrollView
-        android:padding="8dp"
-
+    <include layout="@layout/part_match_description"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-
-        app:layout_constraintTop_toBottomOf="@id/guideline"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <TextView android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            app:layout_constraintTop_toBottomOf="@id/guideline"
-            app:layout_constraintBottom_toBottomOf="parent" />
-    </ScrollView>
+        android:layout_weight="1" />
 </LinearLayout>

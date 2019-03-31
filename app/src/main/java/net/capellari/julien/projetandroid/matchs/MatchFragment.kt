@@ -1,5 +1,6 @@
 package net.capellari.julien.projetandroid.matchs
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_match.view.*
+import kotlinx.android.synthetic.main.part_match_scores.view.*
 import net.capellari.julien.projetandroid.DataModel
 import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Joueur
@@ -126,6 +128,7 @@ class MatchFragment : Fragment() {
                 }
     }
 
+    @SuppressLint("SetTextI18n")
     fun setJoueur(joueur: Joueur, player: String) {
         Log.d(TAG, "update joueur $player")
 

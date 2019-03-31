@@ -18,10 +18,10 @@ import net.capellari.julien.utils.RecyclerHolder
 import net.capellari.julien.utils.autoNotify
 import net.capellari.julien.utils.inflate
 
-class JoueursFragment : ListFragment() {
+open class JoueursFragment : ListFragment() {
     // Attributs
     private val adapter = JoueursAdapter()
-    private lateinit var data: DataModel
+    protected lateinit var data: DataModel
 
     // Events
     override fun onAttach(context: Context?) {
@@ -57,6 +57,10 @@ class JoueursFragment : ListFragment() {
         }
     }
 
+    open fun onJoueurClick(joueur: Joueur) {
+
+    }
+
     // Classes
     inner class JoueursAdapter : RecyclerAdapter<Joueur,JoueurHolder>() {
         // Attributs
@@ -69,6 +73,15 @@ class JoueursFragment : ListFragment() {
     }
 
     inner class JoueurHolder(view: View) : RecyclerHolder<Joueur>(view) {
+        // Initialisation
+        init {
+            view.setOnClickListener {
+                value?.let {
+                    this@JoueursFragment.onJoueurClick(it)
+                }
+            }
+        }
+
         // Méthodes
         override fun onBind(value: Joueur?) {
             // vues

@@ -27,7 +27,7 @@ class Score(@PrimaryKey(autoGenerate = true) var id: Long,
     @Dao
     interface ScoreDao {
         // Accès
-        @Query("select * from Score where match_id = :match")
+        @Query("select * from Score where match_id = :match order by id")
         fun allByMatch(match: Long): LiveData<Array<Score>>
 
         @Query("select * from Score where id = :id")

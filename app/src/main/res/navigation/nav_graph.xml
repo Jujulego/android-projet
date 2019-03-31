@@ -25,8 +25,11 @@
         tools:layout="@layout/fragment_match">
 
         <!-- Arguments -->
-        <argument android:name="match_id"
-            app:argType="long" />
+        <argument android:name="match_id" app:argType="long" />
+
+        <!-- Actions -->
+        <action android:id="@+id/action_select_joueur"
+            app:destination="@id/fragment_selectJoueur" />
     </fragment>
 
     <fragment android:id="@+id/fragment_joueurs"
@@ -34,4 +37,12 @@
         android:name="net.capellari.julien.projetandroid.joueurs.JoueursFragment"
 
         tools:layout="@layout/list_fragment" />
+
+    <fragment android:id="@+id/fragment_selectJoueur"
+        android:name="net.capellari.julien.projetandroid.joueurs.SelectJoueurFragment"
+        android:label="@string/label_select_joueur" >
+
+        <!-- Arguments -->
+        <argument android:name="score_id" app:argType="long" />
+    </fragment>
 </navigation>

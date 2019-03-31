@@ -20,6 +20,27 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false):
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
 
+fun ViewGroup.findViewsByPredicate(pred: (v: View) -> Boolean): List<View> {
+    val views: MutableList<View> = mutableListOf()
+
+    for (i in 0 until childCount) {
+        val view = getChildAt(i)
+
+        if (pred(view)) {
+            views.add(view)
+        }
+
+        if (view is ViewGroup) {
+            views.addAll(view.findViewsByPredicate(pred))
+        }
+    }
+
+    return views
+}
+
+fun ViewGroup.findViewsByTag(tag: Any) = findViewsByPredicate { it.tag == tag }
+fun ViewGroup.findViewsByTag(key: Int, tag: Any) = findViewsByPredicate { it.getTag(key) == tag }
+
 fun Context.getSHA1Cert() : String? {
     try {
         val signatures: Array<Signature>

@@ -22,6 +22,9 @@ class DataModel(app: Application) : AndroidViewModel(app) {
     fun allJoueurs() = joueurDao.all()
     fun getJoueur(id: Long) = joueurDao.getById(id)
 
+    fun allJoueursByMatch(match: Match)   = joueurDao.allByMatch(match.id)
+    fun allJoueursByMatch(match_id: Long) = joueurDao.allByMatch(match_id)
+
     fun insert(joueur: Joueur) {
         doAsync {
             joueurDao.insert(joueur)
@@ -66,4 +69,10 @@ class DataModel(app: Application) : AndroidViewModel(app) {
     fun allScoresByMatch(match: Match)   = scoreDao.allByMatch(match.id)
     fun allScoresByMatch(match_id: Long) = scoreDao.allByMatch(match_id)
     fun getScoreById(id: Long) = scoreDao.getById(id)
+
+    fun update(score: Score) {
+        doAsync {
+            scoreDao.update(score)
+        }
+    }
 }

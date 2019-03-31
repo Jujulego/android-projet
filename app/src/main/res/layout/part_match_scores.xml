@@ -134,8 +134,7 @@
         app:layout_constraintTop_toTopOf="@id/table"
         app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="@id/table"
-        app:layout_constraintBottom_toTopOf="@id/txt_j1"
-        app:layout_constraintVertical_bias=".10">
+        app:layout_constraintBottom_toTopOf="@id/txt_j1">
 
         <tag android:id="@id/data" android:value="name" />
     </TextView>

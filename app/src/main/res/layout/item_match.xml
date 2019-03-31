@@ -31,21 +31,49 @@
 
             tools:text="Finale France 2019" />
 
-        <TextView android:id="@+id/score"
+        <TextView android:id="@+id/score_j1"
             android:textColor="@android:color/primary_text_light"
             android:textSize="40sp"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="24dp"
 
             app:layout_constraintTop_toBottomOf="@id/titre"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/score_sep"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+
+            tools:text="1" />
+
+        <ImageView android:id="@+id/score_sep"
+            android:tint="@android:color/primary_text_light"
+            android:src="@drawable/ic_minus"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+
+            app:layout_constraintTop_toBottomOf="@id/titre"
+            app:layout_constraintStart_toEndOf="@id/score_j1"
+            app:layout_constraintEnd_toStartOf="@id/score_j2"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView android:id="@+id/score_j2"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="40sp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+
+            app:layout_constraintTop_toBottomOf="@id/titre"
+            app:layout_constraintStart_toEndOf="@id/score_sep"
             app:layout_constraintEnd_toStartOf="@id/barrier"
             app:layout_constraintBottom_toBottomOf="parent"
 
-            tools:text="1 - 1" />
+            tools:text="1" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -54,8 +82,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
 
-            app:layout_constraintGuide_percent=".4"
-            app:layout_constraintEnd_toStartOf="@id/barrier" />
+            app:layout_constraintGuide_percent=".4" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier"
@@ -64,9 +91,11 @@
             android:layout_height="0dp"
 
             app:barrierDirection="end"
-            app:constraint_referenced_ids="guideline,score"/>
+            app:constraint_referenced_ids="guideline,score_j2"
+            tools:layout_constraintStart_toEndOf="@id/score_j2"/>
 
         <TextView android:id="@+id/description"
+            android:ellipsize="end"
             android:lines="5"
             android:textColor="@android:color/secondary_text_light"
 
@@ -76,9 +105,7 @@
 
             app:layout_constraintTop_toBottomOf="@id/titre"
             app:layout_constraintStart_toEndOf="@id/barrier"
-            app:layout_constraintEnd_toEndOf="parent"
-
-            tools:text="bla" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

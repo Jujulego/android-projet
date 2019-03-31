@@ -3,6 +3,7 @@ package net.capellari.julien.projetandroid.matchs
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -85,7 +86,22 @@ class MatchsFragment : ListFragment() {
 
         // Méthodes
         override fun onBind(value: Match?) {
-            view.titre.text = value?.titre ?: ""
+            // Remplissage
+            view.titre.text       = value?.titre ?: ""
+            view.description.text = value?.description ?: ""
+
+            // Autres données
+            if (value != null) {
+                data.allScoresByMatch(value).observe(this@MatchsFragment, Observer {
+                    if (it != null) {
+                        view.score_j1.text = it[0].score.toString()
+                        view.score_j2.text = it[1].score.toString()
+                    }
+                })
+            } else {
+                view.score_j1.text = ""
+                view.score_j2.text = ""
+            }
         }
 
         override fun onClick(v: View?) {

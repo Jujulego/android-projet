@@ -29,6 +29,15 @@
                             <option name="y" value="11" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_select_joueur">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -53,7 +62,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="selectJoueurFragment">
+                  <entry key="fragment_selectJoueur">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">

@@ -9,8 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".matchs.MatchFragment"
-    tools:menu="toolbar_match">
+    tools:context=".matchs.MatchFragment">
 
     <include layout="@layout/part_match_scores"
         android:layout_height="wrap_content"

@@ -7,4 +7,10 @@
         android:icon="@drawable/ic_edit"
 
         app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_photos"
+        android:title="@string/label_photos"
+        android:icon="@drawable/ic_photo_camera"
+
+        app:showAsAction="ifRoom" />
 </menu>

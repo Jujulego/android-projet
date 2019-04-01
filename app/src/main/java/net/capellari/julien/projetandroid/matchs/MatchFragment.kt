@@ -89,6 +89,15 @@ class MatchFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
+            R.id.action_photos -> {
+                findNavController().navigate(
+                        R.id.action_match_photos,
+                        bundleOf(
+                            "match_id" to match.match_id
+                        )
+                )
+                true
+            }
             R.id.action_edit -> { findNavController().navigate(R.id.action_edit_match); true }
             else -> super.onOptionsItemSelected(item)
         }

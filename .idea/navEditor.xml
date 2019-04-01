@@ -14,7 +14,7 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="554" />
-                            <option name="y" value="165" />
+                            <option name="y" value="184" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -69,6 +69,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_fragment_match_to_fragment_photos">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_select_joueur">
                               <value>
                                 <LayoutPositions />
@@ -96,6 +101,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="fragment_photos">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="768" />
+                            <option name="y" value="13" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

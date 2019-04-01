@@ -40,4 +40,5 @@
     <string name="match_hint_titre">Titre*</string>
     <string name="match_hint_description">Description</string>
     <string name="action_edit">Modifier</string>
+    <string name="label_photos">Photos</string>
 </resources>

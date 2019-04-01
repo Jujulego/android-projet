@@ -2,10 +2,7 @@ package net.capellari.julien.projetandroid
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import net.capellari.julien.projetandroid.db.AppDatabase
-import net.capellari.julien.projetandroid.db.Joueur
-import net.capellari.julien.projetandroid.db.Match
-import net.capellari.julien.projetandroid.db.Score
+import net.capellari.julien.projetandroid.db.*
 import org.jetbrains.anko.doAsync
 
 class DataModel(app: Application) : AndroidViewModel(app) {
@@ -15,6 +12,7 @@ class DataModel(app: Application) : AndroidViewModel(app) {
     private val database: AppDatabase by lazy { AppDatabase.database(app) }
     private val joueurDao: Joueur.JoueurDao by lazy { database.getJoueurDao() }
     private val matchDao:  Match.MatchDao   by lazy { database.getMatchDao()  }
+    private val photoDao:  Photo.PhotoDao   by lazy { database.getPhotoDao()  }
     private val scoreDao:  Score.ScoreDao   by lazy { database.getScoreDao()  }
 
     // Méthodes
@@ -75,4 +73,8 @@ class DataModel(app: Application) : AndroidViewModel(app) {
             scoreDao.update(score)
         }
     }
+
+    // - photos
+    fun allPhotosByMatch(match: Match)   = photoDao.allByMatch(match.id)
+    fun allPhotosByMatch(match_id: Long) = photoDao.allByMatch(match_id)
 }

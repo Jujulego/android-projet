@@ -3,8 +3,10 @@
     package="net.capellari.julien.projetandroid">
 
     <!-- Features -->
-    <uses-feature android:name="android.hardware.camera"
-        android:required="false" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- Application -->
     <application android:label="@string/app_name"
@@ -15,6 +17,10 @@
         android:theme="@style/AppTheme"
 
         tools:ignore="GoogleAppIndexingWarning">
+
+        <!-- Métadonnées -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDzgaSMeCU8vtraZQz3k-cDUN5QtJy9XUs" />
 
         <!-- Activités -->
         <activity android:name=".MainActivity"

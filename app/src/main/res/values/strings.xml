@@ -26,6 +26,8 @@
     <string name="label_photo">Photo</string>
     <string name="label_photos">Photos</string>
 
+    <string name="label_position">Position</string>
+
     <!-- Joueur -->
     <string name="label_ajout_joueur">Nouveau joueur</string>
     <string name="label_select_joueur">Choisissez un joueur</string>

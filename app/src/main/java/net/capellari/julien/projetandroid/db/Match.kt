@@ -2,6 +2,7 @@ package net.capellari.julien.projetandroid.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.google.android.gms.maps.model.LatLng
 import net.capellari.julien.utils.DiffItem
 import java.util.*
 
@@ -13,6 +14,9 @@ data class Match(@PrimaryKey(autoGenerate = true) var id: Long,
     var longitude: Double = .0,
     var date: Date = Date())
         : DiffItem<Match> {
+
+    // Propriétés
+    val latlng get() = LatLng(latitude, longitude)
 
     // Méthodes
     override fun isSameItem(other: Match)

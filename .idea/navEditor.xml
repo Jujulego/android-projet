@@ -79,6 +79,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_show_position">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -134,6 +139,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="fragment_position_match">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="319" />
+                            <option name="y" value="-389" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

@@ -3,6 +3,7 @@ package net.capellari.julien.projetandroid.matchs
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.location.Location
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,8 +11,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.dialog_ajout_match.view.*
 import net.capellari.julien.projetandroid.DataModel
+import net.capellari.julien.projetandroid.LocationModel
 import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Match
+import net.capellari.julien.utils.success
+import java.lang.Exception
 
 class AjoutMatchDialog : DialogFragment() {
     // Companion
@@ -21,13 +25,15 @@ class AjoutMatchDialog : DialogFragment() {
 
     // Attributs
     private lateinit var data: DataModel
+    private lateinit var location: LocationModel
 
     // Events
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
         // view model !
-        data = ViewModelProviders.of(requireActivity())[DataModel::class.java]
+        data     = ViewModelProviders.of(requireActivity())[DataModel::class.java]
+        location = ViewModelProviders.of(requireActivity())[LocationModel::class.java]
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -41,7 +47,13 @@ class AjoutMatchDialog : DialogFragment() {
 
         builder.setView(layout)
         builder.setPositiveButton(android.R.string.ok) { _, _ ->
-            data.insert(Match(0, layout.titre.text.toString()))
+            location.getLastLocation(
+                success<Location,Exception?> {
+                    data.insert(Match(0, layout.titre.text.toString(), "", it.latitude, it.longitude))
+                } fail {
+                    data.insert(Match(0, layout.titre.text.toString()))
+                }
+            )
         }
 
         val dialog = builder.create()

@@ -7,6 +7,7 @@ import androidx.annotation.IdRes
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
@@ -17,12 +18,18 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     // Companion
     companion object {
+        // Constantes
         const val TAG = "MainActivity"
+
+        const val RQ_CHECK_LOC_PERM = 1
+
     }
 
     // Attributs
     private lateinit var appBarConfig: AppBarConfiguration
     private lateinit var drawerToggle: ActionBarDrawerToggle
+
+    private lateinit var location: LocationModel
 
     // Propriétés
     private val navController by lazy { findNavController(R.id.nav_host_fragment) }
@@ -37,14 +44,21 @@ class MainActivity : AppCompatActivity() {
         // Layout
         setContentView(R.layout.activity_main)
         setupNavigation()
+
+        // View models
+        location = ViewModelProviders.of(this)[LocationModel::class.java]
     }
 
     override fun onStart() {
         super.onStart()
 
+        // Drawer
         if (isAtTopLevel) {
             drawerToggle.syncState()
         }
+
+        // Check permission
+        location.hasPermissionOrRequest(this, RQ_CHECK_LOC_PERM) {}
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {

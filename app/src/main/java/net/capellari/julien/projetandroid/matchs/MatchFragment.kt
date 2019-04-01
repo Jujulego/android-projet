@@ -3,7 +3,6 @@ package net.capellari.julien.projetandroid.matchs
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.ImageButton
 import android.widget.TextView
@@ -92,6 +91,15 @@ class MatchFragment : Fragment() {
             R.id.action_photos -> {
                 findNavController().navigate(
                         R.id.action_match_photos,
+                        bundleOf(
+                            "match_id" to match.match_id
+                        )
+                )
+                true
+            }
+            R.id.action_position -> {
+                findNavController().navigate(
+                        R.id.action_show_position,
                         bundleOf(
                             "match_id" to match.match_id
                         )

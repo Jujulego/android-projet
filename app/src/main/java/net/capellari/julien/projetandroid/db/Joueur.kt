@@ -24,7 +24,7 @@ data class Joueur(@PrimaryKey(autoGenerate = true) var id: Long,
         @Query("select * from Joueur order by nom, prenom")
         fun all(): LiveData<Array<Joueur>>
 
-        @Query("select j.* from Joueur j inner join Score s on j.id = s.joueur_id where s.match_id = :match order by s.id")
+        @Query("select j.* from Joueur j inner join Score _success on j.id = _success.joueur_id where _success.match_id = :match order by _success.id")
         fun allByMatch(match: Long): LiveData<Array<Joueur>>
 
         @Query("select * from Joueur where id = :id")

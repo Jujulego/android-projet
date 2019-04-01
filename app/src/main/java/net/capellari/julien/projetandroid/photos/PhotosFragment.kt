@@ -1,5 +1,6 @@
 package net.capellari.julien.projetandroid.photos
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,6 +14,7 @@ import android.view.*
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_photo.view.*
@@ -24,6 +26,7 @@ import net.capellari.julien.utils.RecyclerAdapter
 import net.capellari.julien.utils.RecyclerHolder
 import net.capellari.julien.utils.autoNotify
 import net.capellari.julien.utils.inflate
+import org.jetbrains.anko.bundleOf
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.io.File
@@ -95,7 +98,11 @@ class PhotosFragment : ListFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when(requestCode) {
-            REQUEST_TAKE_PICTURE -> addPhoto()
+            REQUEST_TAKE_PICTURE -> {
+                if (resultCode == RESULT_OK) {
+                    addPhoto()
+                }
+            }
         }
     }
 
@@ -149,6 +156,18 @@ class PhotosFragment : ListFragment() {
     }
 
     inner class PhotoHolder(view: View): RecyclerHolder<Photo>(view) {
+        // Initialisation
+        init {
+            view.setOnClickListener {
+                value?.let {
+                    findNavController().navigate(
+                            R.id.action_show_photo,
+                            bundleOf("photo_id" to it.id)
+                    )
+                }
+            }
+        }
+
         // Méthodes
         override fun onBind(value: Photo?) {
             value?.photo.let {

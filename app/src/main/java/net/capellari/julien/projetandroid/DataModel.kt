@@ -66,7 +66,7 @@ class DataModel(app: Application) : AndroidViewModel(app) {
     // - scores
     fun allScoresByMatch(match: Match)   = scoreDao.allByMatch(match.id)
     fun allScoresByMatch(match_id: Long) = scoreDao.allByMatch(match_id)
-    fun getScoreById(id: Long) = scoreDao.getById(id)
+    fun getScore(id: Long) = scoreDao.getById(id)
 
     fun update(score: Score) {
         doAsync {
@@ -77,10 +77,16 @@ class DataModel(app: Application) : AndroidViewModel(app) {
     // - photos
     fun allPhotosByMatch(match: Match)   = photoDao.allByMatch(match.id)
     fun allPhotosByMatch(match_id: Long) = photoDao.allByMatch(match_id)
+    fun getPhoto(id: Long) = photoDao.getById(id)
 
     fun insert(photo: Photo) {
         doAsync {
             photoDao.insert(photo)
+        }
+    }
+    fun delete(photo: Photo) {
+        doAsync {
+            photoDao.delete(photo)
         }
     }
 }

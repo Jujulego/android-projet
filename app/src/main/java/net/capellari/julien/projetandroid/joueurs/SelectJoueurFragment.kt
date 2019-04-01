@@ -15,7 +15,7 @@ class SelectJoueurFragment : JoueursFragment() {
         super.onAttach(context)
 
         arguments?.getLong("score_id")?.let {
-            data.getScoreById(it).observe(this, Observer {
+            data.getScore(it).observe(this, Observer {
                 score = it
             })
         }

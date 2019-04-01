@@ -66,6 +66,20 @@
 
         <!-- Arguments -->
         <argument android:name="match_id" app:argType="long" />
+
+        <!-- Actions -->
+        <action android:id="@+id/action_show_photo"
+            app:destination="@id/fragment_photo" />
+    </fragment>
+
+    <fragment android:id="@+id/fragment_photo"
+        android:label="@string/label_photo"
+        android:name="net.capellari.julien.projetandroid.photos.PhotoFragment"
+
+        tools:layout="@layout/fragment_photo">
+
+        <!-- Arguments -->
+        <argument android:name="photo_id" app:argType="long" />
     </fragment>
 
     <fragment android:id="@+id/fragment_joueurs"

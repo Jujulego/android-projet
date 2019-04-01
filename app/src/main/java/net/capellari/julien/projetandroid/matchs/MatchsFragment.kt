@@ -114,7 +114,7 @@ class MatchsFragment : ListFragment() {
             value?.let {
                 data.delete(it)
 
-                view.snackbar(R.string.match_supprime, Snackbar.LENGTH_SHORT)
+                view.snackbar(R.string.deleted, Snackbar.LENGTH_SHORT)
                         .setAction(R.string.cancel) { _ -> data.insert(it) }
                         .show()
             }

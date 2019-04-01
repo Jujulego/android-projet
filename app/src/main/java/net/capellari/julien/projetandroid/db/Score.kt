@@ -2,7 +2,6 @@ package net.capellari.julien.projetandroid.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import net.capellari.julien.utils.DiffItem
 
 @Entity(
     foreignKeys = [
@@ -16,6 +15,10 @@ import net.capellari.julien.utils.DiffItem
             childColumns = arrayOf("joueur_id"),
             onDelete = ForeignKey.SET_NULL
         )
+    ],
+    indices = [
+        Index(value = ["match_id"]),
+        Index(value = ["joueur_id"])
     ]
 )
 class Score(@PrimaryKey(autoGenerate = true) var id: Long,

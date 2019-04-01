@@ -9,6 +9,8 @@ import java.util.*
 data class Match(@PrimaryKey(autoGenerate = true) var id: Long,
     var titre: String,
     var description: String = "",
+    var latitude: Double = .0,
+    var longitude: Double = .0,
     var date: Date = Date())
         : DiffItem<Match> {
 
@@ -17,13 +19,17 @@ data class Match(@PrimaryKey(autoGenerate = true) var id: Long,
         = (id == other.id)
 
     override fun isSameContent(other: Match)
-        = (titre == other.titre) && (description == other.description) && (date == other.date)
+        = (titre == other.titre)
+            && (description == other.description)
+            && (latitude == other.latitude)
+            && (longitude == other.longitude)
+            && (date == other.date)
 
     // Dao
     @Dao
     interface MatchDao {
         // Accès
-        @Query("select * from `Match` order by titre")
+        @Query("select * from `Match` order by date, titre")
         fun all(): LiveData<Array<Match>>
 
         @Query("select * from `Match` where id = :id")

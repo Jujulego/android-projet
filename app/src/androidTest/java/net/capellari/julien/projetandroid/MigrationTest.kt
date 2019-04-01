@@ -8,6 +8,7 @@ import net.capellari.julien.projetandroid.db.AppDatabase
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.Assert.*
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
@@ -33,5 +34,26 @@ class MigrationTest {
 
         // Migrate to v3
         helper.runMigrationsAndValidate(TEST_DB, 3, true, AppDatabase.MIGRATION_2_3)
+    }
+
+    @Test
+    @Throws(IOException::class)
+    fun migrate3To4() {
+        // Création db v3
+        helper.createDatabase(TEST_DB, 3).apply {
+            execSQL("insert into `Match`(id, titre, description, date) values (1, 'Test', 'Test', 0)")
+            close()
+        }
+
+        // Migrate to v3
+        val db = helper.runMigrationsAndValidate(TEST_DB, 4, true, AppDatabase.MIGRATION_3_4)
+        val cursor = db.query("select * from `Match` where id = 1")
+
+        cursor.moveToFirst()
+        assertEquals(1, cursor.count)
+        assertEquals(.0, cursor.getDouble(cursor.getColumnIndex("latitude")), 0.000001)
+        assertEquals(.0, cursor.getDouble(cursor.getColumnIndex("longitude")), 0.000001)
+
+        db.close()
     }
 }

@@ -161,8 +161,8 @@ class PhotosFragment : ListFragment() {
             view.setOnClickListener {
                 value?.let {
                     findNavController().navigate(
-                            R.id.action_show_photo,
-                            bundleOf("photo_id" to it.id)
+                        R.id.action_show_photo,
+                        bundleOf("photo_id" to it.id)
                     )
                 }
             }

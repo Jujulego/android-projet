@@ -2,6 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="net.capellari.julien.projetandroid">
 
+    <!-- Features -->
+    <uses-feature android:name="android.hardware.camera"
+        android:required="false" />
+
+    <!-- Application -->
     <application android:label="@string/app_name"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,6 +16,7 @@
 
         tools:ignore="GoogleAppIndexingWarning">
 
+        <!-- Activités -->
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -19,5 +25,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Providers -->
+        <provider android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <!-- Métadonnées -->
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths" />
+        </provider>
     </application>
 </manifest>

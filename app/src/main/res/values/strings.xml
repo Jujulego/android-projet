@@ -41,4 +41,5 @@
     <string name="match_hint_description">Description</string>
     <string name="action_edit">Modifier</string>
     <string name="label_photos">Photos</string>
+    <string name="take_photo">Prendre une photo</string>
 </resources>

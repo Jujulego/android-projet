@@ -77,4 +77,10 @@ class DataModel(app: Application) : AndroidViewModel(app) {
     // - photos
     fun allPhotosByMatch(match: Match)   = photoDao.allByMatch(match.id)
     fun allPhotosByMatch(match_id: Long) = photoDao.allByMatch(match_id)
+
+    fun insert(photo: Photo) {
+        doAsync {
+            photoDao.insert(photo)
+        }
+    }
 }

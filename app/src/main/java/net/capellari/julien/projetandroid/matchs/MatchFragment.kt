@@ -110,8 +110,6 @@ class MatchFragment : Fragment() {
     }
 
     fun setScore(score: Score, player: String) {
-        Log.d(TAG, "update score $player")
-
         // Recup joueur
         score.joueur_id?.let {
             data.getJoueur(it).observe(this, Observer { setJoueur(it, player) })
@@ -156,8 +154,6 @@ class MatchFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     fun setJoueur(joueur: Joueur, player: String) {
-        Log.d(TAG, "update joueur $player")
-
         // Remplissage
         getPlayerView<TextView>(player, "name")?.text = "${joueur.prenom} ${joueur.nom}"
     }

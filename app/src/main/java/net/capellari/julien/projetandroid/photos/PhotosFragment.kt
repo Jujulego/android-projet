@@ -1,26 +1,46 @@
 package net.capellari.julien.projetandroid.photos
 
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.widget.ImageView
+import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
+import android.util.Log
+import android.view.*
+import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.item_photo.view.*
 import net.capellari.julien.fragments.ListFragment
 import net.capellari.julien.projetandroid.DataModel
+import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Photo
 import net.capellari.julien.utils.RecyclerAdapter
 import net.capellari.julien.utils.RecyclerHolder
 import net.capellari.julien.utils.autoNotify
+import net.capellari.julien.utils.inflate
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PhotosFragment : ListFragment() {
+    // Companion
+    companion object {
+        // Constantes
+        const val TAG = "PhotosFragment"
+        const val REQUEST_TAKE_PICTURE = 1
+    }
+
     // Attributs
     private lateinit var data: DataModel
     private var adapter = PhotoAdaptater()
+
+    private var file: String? = null
 
     // Events
     override fun onAttach(context: Context?) {
@@ -36,10 +56,79 @@ class PhotosFragment : ListFragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Restore
+        file = savedInstanceState?.getString("file")
+
+        // Peut prendre des photo ?
+        if (requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+            setHasOptionsMenu(true)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_photos, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.action_take_photo -> { takePicture(); true }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onRecyclerViewCreated(view: RecyclerView) {
         view.let {
             it.adapter = adapter
-            it.layoutManager = GridLayoutManager(requireContext(), 2)
+            it.layoutManager = GridLayoutManager(
+                    requireContext(), resources.getInteger(R.integer.columns)
+            )
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode) {
+            REQUEST_TAKE_PICTURE -> addPhoto()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putString("file", file)
+    }
+
+    // Méthodes
+    @Throws(IOException::class)
+    fun createImgFile(): File {
+        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+        val dir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+
+        return File.createTempFile("JPEG_$timestamp", ".jpg", dir)
+                .also { file = it.absolutePath }
+    }
+
+    fun takePicture() {
+        context?.let { ctx ->
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+            intent.resolveActivity(ctx.packageManager)?.let {
+                // Create file
+                val file = createImgFile()
+                val uri = FileProvider.getUriForFile(ctx, "com.example.android.fileprovider", file)
+
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+                startActivityForResult(intent, REQUEST_TAKE_PICTURE)
+            }
+        }
+    }
+
+    fun addPhoto() {
+        Log.d(TAG, "add photo $file to ${arguments?.getLong("match_id")}")
+        arguments?.getLong("match_id")?.let { id ->
+            data.insert(Photo(0, id, file!!))
         }
     }
 
@@ -50,20 +139,16 @@ class PhotosFragment : ListFragment() {
 
         // Méthodes
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoHolder {
-            val view = ImageView(parent.context)
-            view.layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-
-            parent.addView(view)
-
-            return PhotoHolder(view)
+            return PhotoHolder(parent.inflate(R.layout.item_photo, false))
         }
     }
 
     inner class PhotoHolder(view: View): RecyclerHolder<Photo>(view) {
+        // Méthodes
         override fun onBind(value: Photo?) {
-            value?.getFile(requireContext())?.let {
-                val img = BitmapFactory.decodeFile(it.absolutePath)
-                (view as ImageView).setImageBitmap(img)
+            value?.photo.let {
+                val img = BitmapFactory.decodeFile(it)
+                view.photo.setImageBitmap(img)
             }
         }
     }

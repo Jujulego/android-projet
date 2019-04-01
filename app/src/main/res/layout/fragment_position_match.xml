@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
@@ -8,9 +9,91 @@
 
     tools:context=".matchs.PositionMatchFragment">
 
-    <fragment android:id="@+id/carte"
+    <fragment
+        android:id="@+id/carte"
         android:name="com.google.android.gms.maps.SupportMapFragment"
 
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-</LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:background="@android:color/background_light"
+        android:elevation="2dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        app:behavior_peekHeight="40dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/adresse"
+                android:hint="@string/unknown_address"
+                android:padding="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView android:id="@+id/ville"
+                android:hint="@string/ville"
+                android:padding="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintTop_toBottomOf="@id/adresse"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/longitude" />
+
+            <TextView android:id="@+id/pays"
+                android:hint="@string/pays"
+                android:padding="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintTop_toBottomOf="@id/adresse"
+                app:layout_constraintStart_toEndOf="@id/latitude"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView android:id="@+id/latitude"
+                android:hint="@string/latitude"
+                android:padding="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintTop_toBottomOf="@id/ville"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/longitude" />
+
+            <TextView android:id="@+id/longitude"
+                android:hint="@string/longitude"
+                android:padding="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintTop_toBottomOf="@id/pays"
+                app:layout_constraintStart_toEndOf="@id/latitude"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

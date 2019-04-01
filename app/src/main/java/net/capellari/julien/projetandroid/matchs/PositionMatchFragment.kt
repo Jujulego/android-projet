@@ -3,6 +3,7 @@ package net.capellari.julien.projetandroid.matchs
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.view.*
@@ -17,12 +18,14 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_position_match.view.*
 import net.capellari.julien.projetandroid.DataModel
 import net.capellari.julien.projetandroid.LocationModel
 import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Match
 import net.capellari.julien.utils.snackbar
 import net.capellari.julien.utils.success
+import java.util.*
 
 class PositionMatchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
     // Companion
@@ -103,6 +106,8 @@ class PositionMatchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapCli
                 position(pos)
             })
         }
+
+        setTexts(pos)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -160,16 +165,40 @@ class PositionMatchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapCli
                     animateCamera(
                         CameraUpdateFactory.newLatLngZoom(it.latlng, DEFAULT_ZOOM)
                     )
+
+                    setTexts(it.latlng)
                 } else if (me != null) {
                     animateCamera(
                         CameraUpdateFactory.newLatLngZoom(me, DEFAULT_ZOOM)
                     )
+
+                    setTexts(null)
                 }
 
                 // Snackbar
                 if (msg) {
                     view?.snackbar(R.string.reloaded, Snackbar.LENGTH_SHORT)?.show()
                 }
+            }
+        }
+    }
+
+    fun setTexts(latLng: LatLng?) {
+        view?.apply {
+            // Latitude et longitude
+            latitude.text  = latLng?.latitude?.let  { "%.6f".format(it) } ?: ""
+            longitude.text = latLng?.longitude?.let { "%.6f".format(it) } ?: ""
+
+            // Geocoding
+            latLng?.let {
+                val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                val addresses = geocoder.getFromLocation(
+                        it.latitude, it.longitude, 1
+                )
+
+                adresse.text = addresses[0].run { "$featureName $thoroughfare" }
+                ville.text = addresses[0].locality
+                pays.text = addresses[0].countryName
             }
         }
     }

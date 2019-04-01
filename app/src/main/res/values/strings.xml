@@ -12,6 +12,11 @@
     <string name="saved">Sauvegardé</string>
 
     <string name="champs_requis">* champs requis</string>
+    <string name="unknown_address">Adresse inconue</string>
+    <string name="ville">Ville</string>
+    <string name="pays">Pays</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
 
     <!-- Navigation -->
     <string name="nav_open">Open</string>

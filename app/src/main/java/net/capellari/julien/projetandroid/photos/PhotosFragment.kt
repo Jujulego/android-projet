@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.media.ThumbnailUtils
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -23,6 +24,8 @@ import net.capellari.julien.utils.RecyclerAdapter
 import net.capellari.julien.utils.RecyclerHolder
 import net.capellari.julien.utils.autoNotify
 import net.capellari.julien.utils.inflate
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -33,6 +36,8 @@ class PhotosFragment : ListFragment() {
     companion object {
         // Constantes
         const val TAG = "PhotosFragment"
+        const val THUMBNAIL_SIZE = 1024
+
         const val REQUEST_TAKE_PICTURE = 1
     }
 
@@ -147,8 +152,17 @@ class PhotosFragment : ListFragment() {
         // Méthodes
         override fun onBind(value: Photo?) {
             value?.photo.let {
-                val img = BitmapFactory.decodeFile(it)
-                view.photo.setImageBitmap(img)
+                view.progress.visibility = View.VISIBLE
+
+                doAsync {
+                    val img = BitmapFactory.decodeFile(it)
+                    val thumbnail = ThumbnailUtils.extractThumbnail(img, THUMBNAIL_SIZE, THUMBNAIL_SIZE)
+
+                    uiThread {
+                        view.photo.setImageBitmap(thumbnail)
+                        view.progress.visibility = View.GONE
+                    }
+                }
             }
         }
     }

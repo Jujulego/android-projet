@@ -13,6 +13,8 @@ bin/
 gen/
 out/
 
+!srv/bin
+
 # Gradle files
 .gradle/
 build/

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
-import android.location.Location
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -196,9 +195,15 @@ class PositionMatchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapCli
                         it.latitude, it.longitude, 1
                 )
 
-                adresse.text = addresses[0].run { "$featureName $thoroughfare" }
-                ville.text = addresses[0].locality
-                pays.text = addresses[0].countryName
+                if (addresses.isNotEmpty()) {
+                    adresse.text = addresses[0].run { "$featureName $thoroughfare" }
+                    ville.text = addresses[0].locality
+                    pays.text = addresses[0].countryName
+                } else {
+                    adresse.text = ""
+                    ville.text = ""
+                    pays.text = ""
+                }
             }
         }
     }

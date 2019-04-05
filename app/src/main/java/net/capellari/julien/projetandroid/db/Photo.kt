@@ -1,10 +1,8 @@
 package net.capellari.julien.projetandroid.db
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import net.capellari.julien.utils.DiffItem
-import java.io.File
 import java.util.*
 
 @Entity(

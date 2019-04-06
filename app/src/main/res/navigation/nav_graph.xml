@@ -115,4 +115,8 @@
         <!-- Arguments -->
         <argument android:name="joueur_id" app:argType="long" />
     </fragment>
+
+    <fragment android:id="@+id/fragment_settings"
+        android:name="net.capellari.julien.projetandroid.SettingsFragment"
+        android:label="@string/label_settings" />
 </navigation>

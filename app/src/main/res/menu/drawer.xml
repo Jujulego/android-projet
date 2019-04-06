@@ -6,5 +6,8 @@
 
         <item android:id="@id/fragment_joueurs"
             android:title="@string/label_joueurs" />
+
+        <item android:id="@id/fragment_settings"
+            android:title="@string/label_settings" />
     </group>
 </menu>

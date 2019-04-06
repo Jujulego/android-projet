@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.item_joueur.view.*
 import net.capellari.julien.fragments.ListFragment
 import net.capellari.julien.projetandroid.DataModel
+import net.capellari.julien.projetandroid.DistantModel
 import net.capellari.julien.projetandroid.R
 import net.capellari.julien.projetandroid.db.Joueur
 import net.capellari.julien.utils.*
@@ -21,14 +22,17 @@ open class JoueursFragment : ListFragment() {
     // Attributs
     private val adapter = JoueursAdapter()
     protected lateinit var data: DataModel
+    protected lateinit var distant: DistantModel
 
     // Events
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
         // view model !
-        data = ViewModelProviders.of(requireActivity())[DataModel::class.java]
-        data.allJoueurs().observe(this, adapter.observer)
+        data    = ViewModelProviders.of(requireActivity())[DataModel::class.java]
+        distant = ViewModelProviders.of(requireActivity())[DistantModel::class.java]
+
+        distant.allJoueurs().observe(this, adapter.observer)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

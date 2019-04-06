@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="@string/settings_srv">
+        <EditTextPreference android:title="@string/settings_srv_address"
+            android:key="adresse"
+            android:defaultValue="10.0.2.2"
+
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference android:title="@string/settings_srv_port"
+            android:key="port"
+            android:defaultValue="3000"
+
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

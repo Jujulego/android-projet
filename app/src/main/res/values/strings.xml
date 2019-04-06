@@ -24,6 +24,7 @@
 
     <string name="label_match">Match</string>
     <string name="label_matchs">Matchs</string>
+    <string name="label_position">Position</string>
 
     <string name="label_joueur">Joueur</string>
     <string name="label_joueurs">Joueurs</string>
@@ -31,7 +32,7 @@
     <string name="label_photo">Photo</string>
     <string name="label_photos">Photos</string>
 
-    <string name="label_position">Position</string>
+    <string name="label_settings">Paramètres</string>
 
     <!-- Joueur -->
     <string name="label_ajout_joueur">Nouveau joueur</string>
@@ -52,4 +53,9 @@
 
     <!-- Photo -->
     <string name="take_photo">Prendre une photo</string>
+
+    <!-- Settings -->
+    <string name="settings_srv">Serveur distant</string>
+    <string name="settings_srv_address">Adresse IP</string>
+    <string name="settings_srv_port">Port</string>
 </resources>

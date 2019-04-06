@@ -3,6 +3,7 @@ package net.capellari.julien.utils
 import android.content.Context
 import android.preference.PreferenceManager
 import java.lang.RuntimeException
+import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 // Méthode
@@ -13,7 +14,7 @@ fun <T : Any> sharedPreference(name: String, context: Context, default: () -> T)
 
 // Classes
 @Suppress("UNCHECKED_CAST")
-abstract class BaseSharedPreference<B : Any, T : Any>(val name: String, val default: () -> T) {
+abstract class BaseSharedPreference<R : Any, T : Any>(val name: String, val default: () -> T): ReadWriteProperty<R,T> {
     // Méthodes
     fun sharedPreferences(context: Context)
             = PreferenceManager.getDefaultSharedPreferences(context)
@@ -49,20 +50,16 @@ abstract class BaseSharedPreference<B : Any, T : Any>(val name: String, val defa
             }
         }.apply()
     }
-
-    // Opérateurs
-    abstract operator fun <R : B> getValue(thisRef: R, property: KProperty<*>): T
-    abstract operator fun <R : B> setValue(thisRef: R, property: KProperty<*>, value: T)
 }
 
 class SharedPreference<T : Any>(name: String, default: () -> T) : BaseSharedPreference<Context,T>(name, default) {
     // Opérateurs
-    override fun <R : Context> getValue(thisRef: R, property: KProperty<*>): T        = get(thisRef)
-    override fun <R : Context> setValue(thisRef: R, property: KProperty<*>, value: T) = set(thisRef, value)
+    override operator fun getValue(thisRef: Context, property: KProperty<*>): T        = get(thisRef)
+    override operator fun setValue(thisRef: Context, property: KProperty<*>, value: T) = set(thisRef, value)
 }
 
 class ContextSharedPreference<T : Any>(val context: Context, name: String, default: () -> T) : BaseSharedPreference<Any,T>(name, default) {
     // Opérateurs
-    override operator fun <R : Any> getValue(thisRef: R, property: KProperty<*>): T        = get(context)
-    override operator fun <R : Any> setValue(thisRef: R, property: KProperty<*>, value: T) = set(context, value)
+    override operator fun getValue(thisRef: Any, property: KProperty<*>): T        = get(context)
+    override operator fun setValue(thisRef: Any, property: KProperty<*>, value: T) = set(context, value)
 }

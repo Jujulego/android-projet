@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7086d2b2-316f-4a6f-bfc0-975a2d1bc6f8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../app/src/main/java/net/capellari/julien/projetandroid/DistantModel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../app/src/main/java/net/capellari/julien/projetandroid/Extensions.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../app/src/main/java/net/capellari/julien/projetandroid/SettingsFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../app/src/main/res/xml/settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/net/capellari/julien/projetandroid/joueurs/JoueursFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/net/capellari/julien/projetandroid/joueurs/JoueursFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/menu/drawer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/menu/drawer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="7086d2b2-316f-4a6f-bfc0-975a2d1bc6f8" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -169,16 +157,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1554499024429</updated>
-      <workItem from="1554499025597" duration="8949000" />
+      <workItem from="1554499025597" duration="9549000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8949000" />
+    <option name="totallyTimeSpent" value="9549000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="npm" sideWeight="0.5021097" side_tool="true" weight="0.24899329" />
       <window_info id="Favorites" side_tool="true" />

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import net.capellari.julien.projetandroid.db.*
 import org.jetbrains.anko.doAsync
+import java.util.*
 
 class DataModel(app: Application) : AndroidViewModel(app) {
     // Propriétés
@@ -25,11 +26,13 @@ class DataModel(app: Application) : AndroidViewModel(app) {
 
     fun insert(joueur: Joueur) {
         doAsync {
+            joueur.updated_at = Date()
             joueurDao.insert(joueur)
         }
     }
     fun update(joueur: Joueur) {
         doAsync {
+            joueur.updated_at = Date()
             joueurDao.update(joueur)
         }
     }

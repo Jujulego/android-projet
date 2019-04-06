@@ -11,7 +11,7 @@ import net.capellari.julien.projetandroid.R
 
 @Database(
     entities = [Joueur::class, Match::class, Photo::class, Score::class],
-    version = 4
+    version = 5
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -22,7 +22,7 @@ abstract class AppDatabase : RoomDatabase() {
             val ctx = context.applicationContext
 
             return Room.databaseBuilder(ctx, AppDatabase::class.java, ctx.getString(R.string.database))
-                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
+                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                     .fallbackToDestructiveMigrationFrom(1)
                     .build()
         }
@@ -52,6 +52,13 @@ abstract class AppDatabase : RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("alter table `Match` add column latitude  real not null default 0.0")
                 database.execSQL("alter table `Match` add column longitude real not null default 0.0")
+            }
+        }
+        val MIGRATION_4_5 = object : Migration(4, 5) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("alter table `Joueur` add column api_id text default null")
+                database.execSQL("alter table `Joueur` add column updated_at int not null default 0")
+                database.execSQL("create unique index index_Joueur_api_id on Joueur(api_id)")
             }
         }
     }

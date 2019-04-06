@@ -45,7 +45,7 @@ class MigrationTest {
             close()
         }
 
-        // Migrate to v3
+        // Migrate to v4
         val db = helper.runMigrationsAndValidate(TEST_DB, 4, true, AppDatabase.MIGRATION_3_4)
         val cursor = db.query("select * from `Match` where id = 1")
 
@@ -53,6 +53,28 @@ class MigrationTest {
         assertEquals(1, cursor.count)
         assertEquals(.0, cursor.getDouble(cursor.getColumnIndex("latitude")), 0.000001)
         assertEquals(.0, cursor.getDouble(cursor.getColumnIndex("longitude")), 0.000001)
+
+        db.close()
+    }
+
+    @Test
+    @Throws(IOException::class)
+    fun migrate4To5() {
+        // Création db v4
+        helper.createDatabase(TEST_DB, 4).apply {
+            execSQL("insert into `Joueur`(id, nom, prenom) values (1, 'Test', 'Test')")
+            execSQL("insert into `Joueur`(id, nom, prenom) values (2, 'Test', 'Test')")
+            close()
+        }
+
+        // Migrate to v5
+        val db = helper.runMigrationsAndValidate(TEST_DB, 5, true, AppDatabase.MIGRATION_4_5)
+        val cursor = db.query("select * from `Joueur` where id = 1")
+
+        cursor.moveToFirst()
+        assertEquals(1, cursor.count)
+        assertEquals(null, cursor.getString(cursor.getColumnIndex("api_id")))
+        assertEquals(0, cursor.getInt(cursor.getColumnIndex("updated_at")))
 
         db.close()
     }
